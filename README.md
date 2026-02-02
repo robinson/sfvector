@@ -22,20 +22,11 @@ This project brings advanced vector similarity search capabilities to SQL Server
 
 ### Design Approaches Considered
 
-1. **SQL CLR (Common Language Runtime)** ✅ Recommended
+**SQL CLR (Common Language Runtime)** 
    - Native integration with SQL Server
    - Can call C++/FAISS via C++/CLI or P/Invoke
    - User-defined types, functions, and stored procedures
    - Security sandbox limitations
-   
-2. **External Service Architecture**
-   - Separate service (Python/C++) communicating via REST/gRPC
-   - More flexible but requires external infrastructure
-   - Better for heavy GPU workloads
-
-3. **SQL Server External Procedures (sp_execute_external_script)**
-   - Limited to Python/R runtimes
-   - Good for prototyping
 
 **Chosen Approach**: **Hybrid - SQL CLR + Native C++ Library**
 - C# CLR layer for SQL Server integration
