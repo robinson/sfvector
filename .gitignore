@@ -1,0 +1,105 @@
+# Summary files
+FINAL_SUMMARY.md
+PROJECT_SUMMARY.md
+
+# Build outputs
+bin/
+obj/
+out/
+build/
+dist/
+*.dll
+*.exe
+*.so
+*.dylib
+*.pdb
+
+# C# / .NET
+*.user
+*.suo
+*.userprefs
+.vs/
+.vscode/
+*.csproj.user
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# C++ build files
+*.o
+*.obj
+*.cmake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+*.egg-info/
+dist/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data files
+data/
+*.csv
+*.npy
+*.json
+results/
+benchmarks/data/
+benchmarks/results/
+
+# Database files
+*.mdf
+*.ldf
+*.bak
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# Docker
+.dockerignore
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Package files
+*.nupkg
+*.snupkg
+packages/
+
+# Node modules (if any JS tooling)
+node_modules/
+
+# Test results
+TestResults/
+*.trx
+coverage/

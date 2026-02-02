@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=VectorSearchDB;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true
+      - Jwt__Secret=your-production-secret-key-at-least-32-characters-long-change-this
+      - Jwt__Issuer=sfvector-api
+      - Jwt__Audience=sfvector-clients
+      - Jwt__ExpirationMinutes=60
+    depends_on:
+      - sqlserver
+    networks:
+      - sfvector-network
+    restart: unless-stopped
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - sfvector-network
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+networks:
+  sfvector-network:
+    driver: bridge
+
+volumes:
+  sqlserver-data:

@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>SqlServer.VectorSearch</RootNamespace>
+    <AssemblyName>SqlServer.VectorSearch</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>10.0</LangVersion>
+    
+    <!-- SQL CLR specific -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    
+    <!-- Strong naming for SQL Server deployment -->
+    <SignAssembly>false</SignAssembly>
+    <!-- <AssemblyOriginatorKeyFile>SqlServer.VectorSearch.snk</AssemblyOriginatorKeyFile> -->
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- SQL Server types -->
+    <PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
+    
+    <!-- For older SQL Server versions, you might need:
+    <PackageReference Include="Microsoft.SqlServer.Types" Version="14.0.1016.290" />
+    -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Native library will be built separately and copied here -->
+    <None Include="..\..\build\native\**\SqlServer.VectorSearch.Native.*" 
+          CopyToOutputDirectory="PreserveNewest" 
+          Link="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Types\" />
+    <Folder Include="Functions\" />
+    <Folder Include="Procedures\" />
+    <Folder Include="Native\" />
+  </ItemGroup>
+
+  <!-- Post-build: Copy to SQL Server deployment folder (optional) -->
+  <Target Name="CopyToDeployment" AfterTargets="Build">
+    <PropertyGroup>
+      <DeploymentFolder>$(SolutionDir)deployment</DeploymentFolder>
+    </PropertyGroup>
+    <MakeDir Directories="$(DeploymentFolder)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeploymentFolder)" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" 
+          DestinationFolder="$(DeploymentFolder)" 
+          Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+  </Target>
+
+</Project>
