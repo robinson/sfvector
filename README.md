@@ -214,7 +214,7 @@ sqlcmd -S localhost -i scripts/deploy.sql
 - [x] Add batch operations
 - [x] Performance benchmarking suite
 - [x] Documentation and examples
-- [ ] Deploy and test with real FAISS library
+- [x] Deploy and test with real FAISS library
 - [ ] GPU support (optional)
 - [ ] Product quantization support
 - [ ] Production deployment guide
