@@ -8,7 +8,6 @@ A high-performance vector similarity search extension for SQL Server, inspired b
 > 
 > **Version**: 0.1.0  
 > **Maintainer**: robinson  
-> **License**: PostgreSQL License
 
 ## 🎯 Overview
 
@@ -20,7 +19,7 @@ This project brings advanced vector similarity search capabilities to SQL Server
 
 ## 🏗️ Architecture
 
-### Design Approaches Considered
+### Design Approaches
 
 **SQL CLR (Common Language Runtime)** 
    - Native integration with SQL Server
@@ -28,7 +27,7 @@ This project brings advanced vector similarity search capabilities to SQL Server
    - User-defined types, functions, and stored procedures
    - Security sandbox limitations
 
-**Chosen Approach**: **Hybrid - SQL CLR + Native C++ Library**
+**Approach**: **Hybrid - SQL CLR + Native C++ Library**
 - C# CLR layer for SQL Server integration
 - C++ native library wrapping FAISS
 - Clean separation of concerns

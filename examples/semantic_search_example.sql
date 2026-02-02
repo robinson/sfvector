@@ -1,61 +1,19 @@
 /*
  * sfvector - SQL Server Vector Search with FAISS
- * Copyright (c) 2026 sfvector contributors
- * 
+ * Copyright 2026 sfvector contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
-
--- =============================================
--- Example: Semantic Search with OpenAI Embeddings
--- =============================================
--- This example demonstrates how to use SQL Server Vector Search
--- for semantic similarity search using OpenAI ada-002 embeddings
-
-USE VectorSearchDB;
-GO
-
--- =============================================
--- 1. Create table with vector column
--- =============================================
-
-IF OBJECT_ID('dbo.Documents', 'U') IS NOT NULL
-    DROP TABLE dbo.Documents;
-GO
-
-CREATE TABLE dbo.Documents (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    title NVARCHAR(500),
-    content NVARCHAR(MAX),
-    -- Using VARBINARY to store vector until VectorType UDT is deployed
-    -- In production, this would be: embedding VectorType
-    embedding VARBINARY(8000), -- Temporary placeholder
-    created_date DATETIME2 DEFAULT GETDATE(),
-    INDEX IX_Documents_Id (id)
-);
-GO
-
--- =============================================
--- 2. Insert sample documents
--- =============================================
--- Note: In production, embeddings would come from OpenAI API
--- Here we show the structure with placeholder data
-
--- Example with VectorType (after deployment):
-/*
-INSERT INTO dbo.Documents (title, content, embedding)
-VALUES 
-    ('Machine Learning Basics', 
-     'Machine learning is a subset of artificial intelligence...', 
-     dbo.VectorType::Parse('[0.1, 0.2, 0.3, ...]')), -- 1536 dimensions for ada-002
-    
-    ('Neural Networks Guide',
-     'Neural networks are computing systems inspired by biological neural networks...',
-     dbo.VectorType::Parse('[0.15, 0.25, 0.28, ...]')),
-    
-    ('Database Indexing',
-     'Database indexing is a data structure technique to efficiently retrieve records...',
-     dbo.VectorType::Parse('[0.5, 0.1, 0.05, ...]'));
-*/
 
 -- =============================================
 -- 3. Create FAISS index
